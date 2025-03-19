@@ -1,6 +1,20 @@
+<div align="center">
+   <img height="30" width="40" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-ico.svg">
+   <a href="./README.md">
+      <img height="30" width="120" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-en.svg">
+   </a>
+   <a href="./README.pt-BR.md">
+      <img height="30" width="60" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-pt-br.svg">
+   </a>
+</div>
+
 # Just a SQLite Interface
 
 A simple graphical interface to interact with SQLite databases, allowing the creation, opening, manipulation, and execution of SQL queries in an intuitive way.
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface1.png)
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface2.png)
 
 ## 📌 Features
 - Create and open SQLite databases.
@@ -20,6 +34,10 @@ A simple graphical interface to interact with SQLite databases, allowing the cre
 - Error Warnings: 70%
 - Functions: 30%
 - Interface: 100%
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface3.png)
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface4.png)
 
 ## 🛠️ Installation and Usage - EASY MODE (No installation required):
 

@@ -1,6 +1,20 @@
+<div align="center">
+   <img height="30" width="40" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-ico.svg">
+   <a href="./README.md">
+      <img height="30" width="120" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-en.svg">
+   </a>
+   <a href="./README.pt-BR.md">
+      <img height="30" width="60" src="https://github.com/hipolitorodrigues/assets-for-github/blob/985021e61af3982fd9f28be446b106b958f24696/images/01/img-readme-pt-br.svg">
+   </a>
+</div>
+
 # Just a SQLite Interface
 
 Uma interface gráfica simples para interagir com bancos de dados SQLite, permitindo a criação, abertura, manipulação e execução de consultas SQL de forma intuitiva.
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface1.png)
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface2.png)
 
 ## 📌 Funcionalidades
 - Criar e abrir bancos de dados SQLite.
@@ -24,6 +38,10 @@ Uma interface gráfica simples para interagir com bancos de dados SQLite, permit
 ## 🛠️ Instalação e Uso - MODO FÁCIL (Não precisa de instalação):
 
 ### 1. Baixe o arquivo portable\SQLite_Interface.exe, dois cliques e divirta-se 🚀.
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface3.png)
+
+![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface4.png)
 
 ## 🛠️ Instalação e Uso - MODO "DIFÍCIL":
 
