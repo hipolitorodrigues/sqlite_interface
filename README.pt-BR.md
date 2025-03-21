@@ -30,10 +30,8 @@ Uma interface gráfica simples para interagir com bancos de dados SQLite, permit
 - Executa uma query por vez.
 
 ## 📚 Progresso da tradução para o inglês:
-- Comentários: 50%
-- Avisos de Erro: 70%
-- Funções: 30%
-- Interface: 100%
+- app.py: 100%
+- SQLite_Interface.exe: 80%
 
 ## 🛠️ Instalação e Uso - MODO FÁCIL (Não precisa de instalação):
 

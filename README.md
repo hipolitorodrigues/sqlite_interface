@@ -30,10 +30,8 @@ A simple graphical interface to interact with SQLite databases, allowing the cre
 - It executes one query at a time.
 
 ## 📚 Translation Progress:
-- Comments: 50%
-- Error Warnings: 70%
-- Functions: 30%
-- Interface: 100%
+- app.py: 100%
+- SQLite_Interface.exe: 80%
 
 ![alt text](https://github.com/hipolitorodrigues/assets-for-github/blob/c635ca704784fb96353b99b3980c08050958a33e/images/01/img-sqlite_interface3.png)
 

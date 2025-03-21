@@ -116,10 +116,10 @@ class DatabaseManager:
                 if any(cmd in query.strip().upper() for cmd in ["CREATE TABLE", "DROP TABLE", "ALTER TABLE"]):
                     self._update_db_info()
                     
-                return True, f"Comando executado com sucesso. Linhas afetadas: {self.cursor.rowcount}", None
+                return True, f"Command executed successfully. Rows affected: {self.cursor.rowcount}", None
                 
         except sqlite3.Error as e:
-            return False, f"Erro ao executar consulta: {e}", None
+            return False, f"Error executing query: {e}", None
     
     def get_tables(self) -> List[str]:
         """
@@ -136,7 +136,7 @@ class DatabaseManager:
             tables = [row[0] for row in self.cursor.fetchall()]
             return tables
         except sqlite3.Error as e:
-            print(f"Erro ao obter tabelas: {e}")
+            print(f"Error retrieving tables: {e}")
             return []
     
     def get_table_info(self, table_name: str) -> List[Tuple[str, str]]:
@@ -157,7 +157,7 @@ class DatabaseManager:
             columns = [(row[1], row[2]) for row in self.cursor.fetchall()]  # (name, type)
             return columns
         except sqlite3.Error as e:
-            print(f"Erro ao obter informações da tabela: {e}")
+            print(f"Error retrieving table information: {e}")
             return []
     
     def _update_db_info(self) -> None:
@@ -175,7 +175,7 @@ class DatabaseManager:
             self.cursor.execute("SELECT name FROM sqlite_master WHERE type='view'")
             self.db_info['views'] = [row[0] for row in self.cursor.fetchall()]
         except sqlite3.Error as e:
-            print(f"Erro ao atualizar informações do banco: {e}")
+            print(f"Error updating database information: {e}")
 
 class ApplicationUI:
     """  
@@ -217,7 +217,7 @@ class ApplicationUI:
         self._setup_bottom_section()
         
         # Status bar for user feedback
-        self.status_var = tk.StringVar(value="Pronto")
+        self.status_var = tk.StringVar(value="Ready")
         self.status_bar = ttk.Label(
             self.root, 
             textvariable=self.status_var, 
@@ -319,7 +319,7 @@ class ApplicationUI:
         Args:  
             button_id: Identifier of the clicked button  
         """
-        print(f"Botão {button_id} clicado - Ainda sem função específica definida")
+        print(f"Button {button_id} clicked - No specific function defined yet")
     
     def _create_new_database(self) -> None:
         """Creates a new SQLite database."""
@@ -336,7 +336,7 @@ class ApplicationUI:
                 # Adds a query suggestion to create a table
                 self.query_text.delete(1.0, tk.END)
                 self.query_text.insert(tk.END, """-- Example of table creation
-CREATE TABLE clientes (
+CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     email TEXT,
@@ -355,7 +355,7 @@ CREATE TABLE clientes (
         
         if file_path:
             if self.db_manager.connect(file_path):
-                self.status_var.set(f"Connected to the bank: {os.path.basename(file_path)}")
+                self.status_var.set(f"Connected to the database: {os.path.basename(file_path)}")
                 self._update_db_tree()
             else:
                 self.status_var.set("Error connecting to the database")
@@ -373,9 +373,9 @@ CREATE TABLE clientes (
         """Updates the database navigation tree."""
         if self.db_manager.current_db_path:
             self._update_db_tree()
-            self.status_var.set("Árvore de navegação atualizada")
+            self.status_var.set("Navigation tree updated")
         else:
-            self.status_var.set("Nenhum banco aberto para atualizar")
+            self.status_var.set("No database open to update")
         
     def _setup_left_section(self) -> None:
         """Configures the left section (green in the reference image)."""
@@ -386,7 +386,7 @@ CREATE TABLE clientes (
         )
         self.left_section.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
         
-        # Título para a seção esquerda
+        # Title for the left section
         self.left_content = ttk.Label(
             self.left_section,
             text="Database Navigation",
@@ -420,32 +420,32 @@ CREATE TABLE clientes (
         self.db_tree.bind("<<TreeviewSelect>>", self._on_tree_select)
         
     def _update_db_tree(self) -> None:
-        """Atualiza a árvore de navegação com as tabelas e views do banco atual."""
+        """Updates the navigation tree with the tables and views of the current database."""
         self._clear_db_tree()
         
         if not self.db_manager.current_db_path:
             return
             
-        # Nó raiz para o banco atual
+        # Root node for the current database
         db_name = os.path.basename(self.db_manager.current_db_path)
         db_node = self.db_tree.insert("", END, text=db_name, open=True, values=("database",))
         
-        # Nó para tabelas
-        tables_node = self.db_tree.insert(db_node, END, text="Tabelas", open=True, values=("tables",))
+        # Node for tables
+        tables_node = self.db_tree.insert(db_node, END, text="Tables", open=True, values=("tables",))
         
-        # Adiciona cada tabela
+        # Add each table
         for table in self.db_manager.db_info.get('tables', []):
             table_node = self.db_tree.insert(tables_node, END, text=table, values=("table", table))
             
-            # Adiciona colunas da tabela
+            # Add table columns
             columns = self.db_manager.get_table_info(table)
             for col_name, col_type in columns:
                 self.db_tree.insert(table_node, END, text=f"{col_name} ({col_type})", values=("column", table, col_name))
         
-        # Nó para views
+        # Node for views
         views_node = self.db_tree.insert(db_node, END, text="Views", open=True, values=("views",))
         
-        # Adiciona cada view
+        # Add each view
         for view in self.db_manager.db_info.get('views', []):
             self.db_tree.insert(views_node, END, text=view, values=("view", view))
     
@@ -456,10 +456,10 @@ CREATE TABLE clientes (
     
     def _on_tree_select(self, event) -> None:
         """
-        Manipula a seleção de itens na árvore de navegação.
-        
+        Handles the selection of items in the navigation tree.
+
         Args:
-            event: Evento de seleção
+            event: Selection event
         """
         selected_item = self.db_tree.selection()[0]
         item_values = self.db_tree.item(selected_item, "values")
@@ -469,30 +469,30 @@ CREATE TABLE clientes (
             
         item_type = item_values[0]
         
-        # Se selecionou uma tabela, gera uma consulta SELECT
+        # If a table is selected, generate a SELECT query
         if item_type == "table" and len(item_values) > 1:
             table_name = item_values[1]
             self.query_text.delete(1.0, tk.END)
             self.query_text.insert(tk.END, f"SELECT * FROM {table_name} LIMIT 100;")
         
-        # Se selecionou uma view, gera uma consulta SELECT
+        # If a view is selected, generate a SELECT query
         elif item_type == "view" and len(item_values) > 1:
             view_name = item_values[1]
             self.query_text.delete(1.0, tk.END)
             self.query_text.insert(tk.END, f"SELECT * FROM {view_name} LIMIT 100;")
             
     def _setup_main_content(self) -> None:
-        """Configura a área de conteúdo principal (dividida em azul e vermelho na referência)."""
-        # Container para as seções de conteúdo
+        """Sets up the main content area (divided into blue and red in the reference)."""
+        # Container for content sections
         self.content_container = ttk.Frame(self.main_container)
         self.content_container.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
         
-        # Configuração para dividir em duas partes (azul/vermelho)
+        # Setup to split into two parts (blue/red)
         self.content_container.grid_rowconfigure(0, weight=1)
         self.content_container.grid_rowconfigure(1, weight=1)
         self.content_container.grid_columnconfigure(0, weight=1)
         
-        # Seção superior (azul na referência) - Para consultas SQL
+        # Top section (blue in the reference) - For SQL queries
         self.upper_content = ResponsiveFrame(
             self.content_container,
             bootstyle="primary",
@@ -500,7 +500,7 @@ CREATE TABLE clientes (
         )
         self.upper_content.grid(row=0, column=0, sticky="nsew", pady=(0, 2))
         
-        # Área de entrada para consultas SQL
+        # Input area for SQL queries
         self.query_label = ttk.Label(
             self.upper_content,
             text="SQL Query:",
@@ -523,7 +523,7 @@ CREATE TABLE clientes (
         
         self.execute_button = ttk.Button(
             self.query_buttons_frame,
-            text="Executar Consulta",
+            text="Execute Query",
             bootstyle="primary",
             command=self._execute_query
         )
@@ -531,7 +531,7 @@ CREATE TABLE clientes (
         
         self.clear_button = ttk.Button(
             self.query_buttons_frame,
-            text="Limpar",
+            text="Clear",
             bootstyle="primary-outline",
             command=lambda: self.query_text.delete(1.0, tk.END)
         )
@@ -554,7 +554,7 @@ CREATE TABLE clientes (
         )
         self.results_label.pack(anchor=W, pady=(0, 5))
         
-        # Frame para conter o treeview e scrollbars
+        # Frame to contain the treeview and scrollbars
         self.results_frame = ttk.Frame(self.lower_content)
         self.results_frame.pack(fill=BOTH, expand=YES)
         
@@ -614,37 +614,37 @@ CREATE TABLE clientes (
                     self.results_tree.delete(item)
                 
                 if not result:
-                    self.status_var.set("Consulta executada com sucesso, mas nenhum resultado foi retornado.")
+                    self.status_var.set("Query executed successfully, but no results were returned.")
                     # Configures the treeview with a single column to display "No results"
                     self.results_tree["columns"] = ["message"]
                     self.results_tree.heading("message", text="Mensagem")
                     self.results_tree.column("message", width=400)
-                    self.results_tree.insert("", tk.END, values=["Nenhum resultado encontrado."])
+                    self.results_tree.insert("", tk.END, values=["No results found."])
                     return
                 
-                # Configura as colunas do treeview com os nomes das colunas do resultado
+                # Set up the treeview columns with the column names from the result
                 self.results_tree["columns"] = column_names
                 
                 for col in column_names:
                     self.results_tree.heading(col, text=col, anchor=W)
                     self.results_tree.column(col, width=100, minwidth=50)
                 
-                # Insere os dados do resultado
+                # Insert the result data
                 for row in result:
-                    # Converte todos os valores para string (para evitar problemas com None, etc.)
+                    # Convert all values to string (to avoid issues with None, etc.)
                     string_row = [str(value) if value is not None else "" for value in row]
                     self.results_tree.insert("", tk.END, values=string_row)
                 
                 self.status_var.set(f"Consulta executada com sucesso. {len(result)} registros encontrados.")
                 
-                # Atualiza a árvore de navegação após comandos que modificam a estrutura
+                # Update the navigation tree after commands that modify the structure
                 if any(cmd in query.strip().upper() for cmd in ["CREATE", "DROP", "ALTER"]):
                     self._update_db_tree()
             else:
-                # Resultado é uma mensagem
+                # The result is a message
                 self.status_var.set(result)
                 
-                # Configure o treeview com uma coluna apenas para mostrar a mensagem
+                # Configure the treeview with a single column to display the message
                 for col in self.results_tree["columns"]:
                     self.results_tree.heading(col, text="")
                 
@@ -656,17 +656,17 @@ CREATE TABLE clientes (
                 self.results_tree.column("message", width=400)
                 self.results_tree.insert("", tk.END, values=[result])
                 
-                # Atualiza a árvore de navegação após comandos que modificam a estrutura
+                # Update the navigation tree after commands that modify the structure
                 if any(cmd in query.strip().upper() for cmd in ["CREATE", "DROP", "ALTER"]):
                     self._update_db_tree()
         else:
-            # Mostra mensagem de erro
+            # Show error message
             messagebox.showerror("Erro SQL", result)
             self.status_var.set("Erro ao executar consulta.")
         
     def _setup_bottom_section(self) -> None:
-        """Configura a seção inferior caso necessário."""
-        # Esta seção não é necessária de acordo com o layout original
+        """Sets up the bottom section if needed."""
+        # This section is not needed according to the original layout
         pass
 
 class Application:
